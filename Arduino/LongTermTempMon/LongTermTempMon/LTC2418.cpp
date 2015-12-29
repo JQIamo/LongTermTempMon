@@ -80,6 +80,9 @@ int32_t LTC2418::read(dac_ch_t ch){
        digitalWrite(_cs, HIGH);
        SPI.endTransaction();
     
+    //Combine bytes:
+    _data.val = (_data.bytes[0] << 24) | (_data.bytes[1] << 16) | (_data.bytes[2] << 8) | (_data.bytes[3]);
+    
     // convert data to meaningful reading
     // should eventually implement parity, bounds checking, etc. here??
     
@@ -89,13 +92,16 @@ int32_t LTC2418::read(dac_ch_t ch){
     // 1) Bit-shift ADC code to the right 6 bits
   	adc_code = _data.val>>6;   
   	// 2) Convert ADC code from offset binary to binary
-  	adc_code -= 8388608;                                              
+  	adc_code -= 8388608;      
    	// 3) Calculate voltage from ADC code, lsb, offset.
   	adc_voltage=((float)adc_code + _offset_code)*(_lsb); 
+        //Serial.println(adc_voltage);
   	
   	// dump voltage into reading for that channel
   	_readings[ch].adc_code = adc_code;
   	_readings[ch].value = adc_voltage;
+       
+       return adc_code;
   	
 }
 
