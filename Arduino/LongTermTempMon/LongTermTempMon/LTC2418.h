@@ -193,6 +193,8 @@ class LTC2418 {
     //! read given channel.
     int32_t read(dac_ch_t ch);
     
+    int32_t readOnly(dac_ch_t ch);
+    
     //! @name read_continuous
     //! @{ 
     //!	continuous polling of channels given by ch_spec.

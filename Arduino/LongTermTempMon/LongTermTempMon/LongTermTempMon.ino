@@ -18,13 +18,13 @@ LTC2418 adc(cs_pin, 500000);
 void readCh(int chNum) {
   int result;
   if (chNum == 0) {
-    result = adc.read(CH0);
+    result = adc.readOnly(CH0);
   } else if (chNum == 1) {
-    result = adc.read(CH1);
+    result = adc.readOnly(CH1);
   } else if (chNum == 2) {
-    result = adc.read(CH2);
+    result = adc.readOnly(CH2);
   } else if (chNum == 3) {
-    result = adc.read(CH3);
+    result = adc.readOnly(CH3);
   } else {
     return; //unexpected argument
   }
@@ -56,10 +56,6 @@ void loop() {
   readCh(0);
   readCh(2);
   delay(1000);
-  
-  //int res ;
-  //res = adc.read(CH0);
-  //Serial.println(res);
-  //delay(1000);
+ 
 
 }
